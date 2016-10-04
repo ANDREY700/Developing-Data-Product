@@ -1,0 +1,45 @@
+---
+title: "Week 2 Assignment: Power Machines Representatives"
+author: "ABRAMOV Andrey"
+date: "October 4, 2016"
+output: html_document
+---
+
+## Course name
+Developing Data Products by Johns Hopkins University
+
+## Goal of the Assignment
+1) Create a web page using R Markdown that features a map created with Leaflet. 
+Webpage must contain the date of creating the document, and it must contain a map created with Leaflet.
+2) Host your webpage on either GitHub Pages, RPubs, or NeoCities.
+
+## Coding
+
+```{r}
+library(leaflet)
+# collectin the data
+# real adress could be found at www.power-m.ru
+PM_offices <- data.frame(lat = c(59.961836, 55.78074, 54.54242, 47.236947, 56.338499),
+                         lng = c(30.38184, 37.639374, 36.270881, 38.900358, 30.536467),
+                         popup = c("Head Office", "Moscow Office", "Kalufa workshop", "Krasny kotelchik workshop", "Reostat workshop"))
+PM_offices <- as.data.frame(PM_offices)
+# prepare a PM icon for the map
+PM_icon <- makeIcon(iconUrl="http://www.metaprom.ru/foto_news/1351234343foto1_big.jpg", 
+                    iconWidth=50*600/450, iconHeight=50*450/600)
+# correcting the data type
+PM_offices$lat <- as.numeric(as.character(PM_offices$lat))
+PM_offices$lng <- as.numeric(as.character(PM_offices$lng))
+PM_offices$popup <- as.character(PM_offices$popup)
+
+```
+
+So the map with markers looks like the next:
+
+```{r, echo=FALSE}
+PM_map <- leaflet() %>%  addTiles() %>% addMarkers(lat=PM_offices$lat, lng=PM_offices$lng, popup=PM_offices$popup, icon=PM_icon)
+PM_map
+```
+
+Thank you for your attention!
+Andrey ABRAMOV
+
